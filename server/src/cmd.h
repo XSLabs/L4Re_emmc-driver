@@ -165,6 +165,8 @@ public:
     flags.reset();
     flags.inout() = 1;
     flags.inout_read() = inout_read;
+    if (sector_val > ~0U)
+      L4Re::throw_error(-L4_EINVAL, "Sector number beyond 32 bits");
     sector = sector_val;
     sectors_done = 0;
     blocks = blocks_val;

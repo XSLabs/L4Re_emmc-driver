@@ -174,7 +174,7 @@ Factory::create_dev(L4vbus::Pci_dev const &dev, l4vbus_device_t const &dev_info,
     {
       l4vbus_resource_t res;
       L4Re::chksys(dev.get_resource(i, &res), "Getting resource.");
-      if (res.type == L4VBUS_RESOURCE_DMA_DOMAIN && res_dma_id != -1UL)
+      if (res.type == L4VBUS_RESOURCE_DMA_DOMAIN && res_dma_id == -1UL)
         {
           Dbg::trace().printf("Using device's DMA domain %lu.\n", res.start);
           res_dma_id = res.start;

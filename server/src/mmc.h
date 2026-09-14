@@ -1380,11 +1380,11 @@ public:
 
     CXX_BITFIELD_MEMBER(16, 25, vsc_au_size, raw11);            // 377:368
 
-    CXX_BITFIELD_MEMBER( 9,  9, card_maint, raw10);             // 328:328
+    CXX_BITFIELD_MEMBER( 8,  8, card_maint, raw10);             // 328:328
     CXX_BITFIELD_MEMBER( 9,  9, host_maint, raw10);             // 329:329
     CXX_BITFIELD_MEMBER(10, 10, supp_cache, raw10);             // 330:330
     CXX_BITFIELD_MEMBER(11, 15, supp_cmd_queue, raw10);         // 335:331
-    CXX_BITFIELD_MEMBER(16, 19, app_perf_class, raw10);         // 336:339
+    CXX_BITFIELD_MEMBER(16, 19, app_perf_class, raw10);         // 339:336
 
     CXX_BITFIELD_MEMBER(24, 24, fule_support, raw9);            // 312:312
     CXX_BITFIELD_MEMBER(25, 25, discard_support, raw9);         // 313:313

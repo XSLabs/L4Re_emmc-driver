@@ -405,7 +405,7 @@ parse_args(int argc, char *const *argv)
 
         case OPT_CLIENT:
           if (!opts.add_client(&drv))
-            return 1;
+            return -1;
           opts = Client_opts();
           opts.capname = optarg;
           break;

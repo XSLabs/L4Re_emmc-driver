@@ -1707,7 +1707,8 @@ Device<Driver>::device_size(Mmc::Reg_csd const &csd)
     {
     case 0: return csd.s0.device_size();
     case 1: return csd.s1.device_size();
-    case 2: return csd.s3.device_size();
+    case 2:
+    case 3: return csd.s3.device_size();
     default: return 0;
     }
 }

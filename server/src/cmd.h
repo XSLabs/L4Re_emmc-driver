@@ -149,7 +149,7 @@ public:
     flags.has_data() = 1;
     blockcnt = 1;
     blocksize = blocksize_val;
-    if (data_phys & 0xffffffff00000000ULL)
+    if (data_phys_val & 0xffffffff00000000ULL)
       L4Re::throw_error(-L4_ENOMEM, "Physical address beyond 4G");
     data_phys = data_phys_val & 0xffffffff;
     data_virt = data_virt_val;

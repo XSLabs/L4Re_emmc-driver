@@ -394,7 +394,7 @@ parse_args(int argc, char *const *argv)
         case OPT_MAX_SEG:
           {
             int i = atoi(optarg);
-            if (i < 0 || i > 128) // some arbitrary sane upper limit
+            if (i <= 0 || i > 128) // some arbitrary sane upper limit
               {
                 Err().printf("Invalid --max-seg=%d parameter\n", i);
                 return -1;

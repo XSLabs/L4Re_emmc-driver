@@ -299,8 +299,8 @@ private:
   /**
    * Sector size multiplier.
    *
-   * `_addr_mult` == 512: byte mode (OCR.ccs=1):
-   *  - SDHC: up to 2 GiB
+   * `_addr_mult` == 512: byte mode (OCR.ccs=0):
+   *  - SDSC: up to 2 GiB
    *  - CMD16 sets block length 1..512 Byte
    *  - block addresses in bytes, so up to 2^32 bytes = 4 GiB addressable
    *

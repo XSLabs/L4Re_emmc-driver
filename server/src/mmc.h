@@ -909,7 +909,7 @@ public:
       CXX_BITFIELD_MEMBER(1, 1, auto_en, raw);
       CXX_BITFIELD_MEMBER(0, 0, manual_en, raw);
     };
-    l4_uint8_t ec163_bkops_en;
+    Ec163_bkops_en ec163_bkops_en;
     l4_uint8_t ec164_bkops_start;
     l4_uint8_t ec165_sanitize_start;
     l4_uint8_t ec166_wr_rel_param;

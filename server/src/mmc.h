@@ -702,7 +702,7 @@ public:
       Reg54_exception_events_status = 54,
       Reg56_exception_events_ctrl = 56,
       Reg58_dyncap_needed = 58,
-      Reg59_class_6_ctrl = 69,
+      Reg59_class_6_ctrl = 59,
       Reg60_ini_timeout_emu = 60,
       Reg61_data_sector_size = 61,
       Reg62_use_native_sector = 62,

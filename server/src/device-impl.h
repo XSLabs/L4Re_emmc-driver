@@ -793,7 +793,24 @@ Device<Driver>::mmc_set_bus_width(Cmd *cmd,
     warn.printf("Set bus width (%s) failed (status %08x).\n",
                 bw.str_bus_width(), cmd->mmc_status().raw);
   else
-    _drv.set_bus_width(Mmc::Bus_width::Width_8bit);
+    {
+      Mmc::Bus_width host_width;
+      switch (width)
+        {
+        case Mmc::Reg_ecsd::Ec183_bus_width::W_1bit_sdr:
+          host_width = Mmc::Bus_width::Width_1bit;
+          break;
+        case Mmc::Reg_ecsd::Ec183_bus_width::W_4bit_sdr:
+        case Mmc::Reg_ecsd::Ec183_bus_width::W_4bit_ddr:
+          host_width = Mmc::Bus_width::Width_4bit;
+          break;
+        default:
+          host_width = Mmc::Bus_width::Width_8bit;
+          break;
+        }
+
+      _drv.set_bus_width(host_width);
+    }
 }
 
 template <class Driver>

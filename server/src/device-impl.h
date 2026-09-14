@@ -140,7 +140,7 @@ template <class Driver>
 void
 Device<Driver>::reset()
 {
-  warn.printf("\033[31;1mCalling reset()!\033\n");
+  warn.printf("\033[31;1mCalling reset()!\033[m\n");
 }
 
 template <class Driver>

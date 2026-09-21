@@ -1249,7 +1249,8 @@ Device<Driver>::power_up_sd(Cmd *cmd)
                              reinterpret_cast<l4_addr_t>(_io_buf.get<void>()));
               cmd_exec(cmd);
               cmd->check_error("CMD6: SWITCH_FUNC/SET_POWER");
-              if (sf.fun_sel_grp4() == sf.Invalid_function)
+              Mmc::Reg_switch_func sf_set(_io_buf.get<l4_uint8_t const>());
+              if (sf_set.fun_sel_grp4() == sf_set.Invalid_function)
                 L4Re::throw_error(-L4_EINVAL, "Invalid function trying to set power");
             }
         }
@@ -1261,7 +1262,8 @@ Device<Driver>::power_up_sd(Cmd *cmd)
                      reinterpret_cast<l4_addr_t>(_io_buf.get<void>()));
       cmd_exec(cmd);
       cmd->check_error("CMD6: SWITCH_FUNC/SET_MODE");
-      if (sf.fun_sel_grp1() == sf.Invalid_function)
+      Mmc::Reg_switch_func sf_set(_io_buf.get<l4_uint8_t const>());
+      if (sf_set.fun_sel_grp1() == sf_set.Invalid_function)
         L4Re::throw_error(-L4_EINVAL, "Invalid function trying to set mode");
 
       _drv.set_clock_and_timing(freq, mmc_timing);

@@ -351,9 +351,12 @@ template <class Driver>
 int
 Device<Driver>::flush(Block_device::Inout_callback const &cb)
 {
+  Block_device::Inout_callback cb_success = cb; // capture a copy
+
   if (!_has_cache)
     {
-      cb(L4_EOK, 0);
+      // The callback must not run before this function has returned!
+      Errand::schedule([cb_success]() { cb_success(L4_EOK, 0); }, 0);
       return L4_EOK;
     }
 
@@ -382,8 +385,8 @@ Device<Driver>::flush(Block_device::Inout_callback const &cb)
       return -L4_EINVAL;
     }
 
-  cb(L4_EOK, 0); // What to pass for 'size'?
-
+  // The callback must not run before this function has returned!
+  Errand::schedule([cb_success]() { cb_success(L4_EOK, 0); }, 0);
   return L4_EOK;
 }
 

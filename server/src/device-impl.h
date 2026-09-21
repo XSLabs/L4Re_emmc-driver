@@ -308,6 +308,10 @@ Device<Driver>::inout_data(l4_uint64_t sector,
                           b->num_sectors, sector_size(), size, max_size());
               L4Re::throw_error(-L4_EINVAL, "Segment size in inout_data()");
             }
+          // Sanity check: libblock-device doesn't produce empty inout segment
+          // but such a segment would be fatal.
+          if (b->num_sectors == 0)
+            L4Re::throw_error(-L4_EINVAL, "Empty segment in inout_data()");
           ++segments;
         }
 

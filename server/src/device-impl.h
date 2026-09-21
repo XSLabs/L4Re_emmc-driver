@@ -1335,6 +1335,9 @@ Device<Driver>::power_up_mmc(Cmd *cmd)
 {
   info.printf("Trying mmc...\n");
 
+  // 0 must not be used here as SET_RELATIVE_ADDR reserves it.
+  _rca = 0x0001;
+
   cmd->init(Mmc::Cmd1_send_op_cond);
   cmd_exec(cmd);
   if (cmd->error())

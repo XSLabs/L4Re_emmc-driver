@@ -35,6 +35,8 @@ using Dma_addr = L4Re::Dma_space::Dma_addr;
 enum Device_flags : l4_uint32_t
 {
   None = 0,
+  /// The controller lacks standard tuning, disable all modes requiring tuning.
+  No_std_tuning = 1 << 0,
 };
 
 constexpr Device_flags operator|(Device_flags lhs, Device_flags rhs)

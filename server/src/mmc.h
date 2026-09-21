@@ -1327,7 +1327,7 @@ public:
       if (au_size() == 0x0)
         return 0;
       if (au_size() < 0xb)
-        return 1U << (1 + au_size());
+        return 1U << (13 + au_size());
       switch (au_size())
         {
         case 0xb: return 12U << 20;
@@ -1362,11 +1362,11 @@ public:
     CXX_BITFIELD_MEMBER( 8, 11, uhs_au_size, raw12);
     l4_uint32_t uhs_au_size_val() const
     {
-      if (au_size() < 0x7)
+      if (uhs_au_size() < 0x7)
         return 0;
-      if (au_size() < 0xb)
-        return 1U << (1 + au_size());
-      switch (au_size())
+      if (uhs_au_size() < 0xb)
+        return 1U << (13 + uhs_au_size());
+      switch (uhs_au_size())
         {
         case 0xb: return 12U << 20;
         case 0xc: return 16U << 20;

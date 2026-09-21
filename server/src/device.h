@@ -289,7 +289,7 @@ private:
   void claim_bounce_buffer(char const *cap_name);
 
   /// Device type (must be null-terminated)
-  char _hid[Hid_max_length];
+  char _hid[Hid_max_length] = "uninit";
 
   Driver _drv;                  ///< driver instance
   int _irq_num;                 ///< interrupt number

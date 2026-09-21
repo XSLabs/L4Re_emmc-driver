@@ -288,6 +288,9 @@ Device<Driver>::inout_data(l4_uint64_t sector,
                            Block_device::Inout_callback const &cb,
                            L4Re::Dma_space::Direction dir)
 {
+  if (_type == T_unknown)
+    return -L4_EIO;
+
   Cmd *cmd = _drv.cmd_create();
   if (!cmd)
     return -L4_EBUSY;
@@ -427,7 +430,11 @@ Device<Driver>::start_device_scan(Errand::Callback const &cb)
 
   Cmd *cmd = _drv.cmd_create();
   if (!cmd)
-    return;
+    {
+      warn.printf("No command slot for device initialization!\n");
+      cb();
+      return;
+    }
 
   _drv.set_clock_and_timing(400 * KHz, Mmc::Legacy);
 
@@ -531,9 +538,13 @@ Device<Driver>::start_device_scan(Errand::Callback const &cb)
               int ret = L4Re::chksys(l4_error(_icu->bind(_irq_num, _irq)),
                                      "Bind interrupt to ICU.");
               _irq_unmask_at_icu = ret == 1;
-
-              cb();
             }
+
+          // Report the scan as finished either way. A device that failed to
+          // initialize stays in the T_unknown state and rejects all requests,
+          // but the device manager must not keep waiting for it -- it would
+          // never publish its factory to dynamic clients.
+          cb();
         }, 0);
 
       // Wakeup the server loop.

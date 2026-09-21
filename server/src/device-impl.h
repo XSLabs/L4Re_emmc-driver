@@ -431,8 +431,6 @@ Device<Driver>::start_device_scan(Errand::Callback const &cb)
 
   _drv.set_clock_and_timing(400 * KHz, Mmc::Legacy);
 
-  reset_sdio(cmd);
-
   _init_thread = std::thread([this, cmd, cb]
     {
       struct Wakeup_handler : public L4::Irqep_t<Wakeup_handler>
@@ -450,6 +448,8 @@ Device<Driver>::start_device_scan(Errand::Callback const &cb)
           // During initialization receive IRQ directly  (receive_irq())
           L4Re::chksys(l4_error(_irq->bind_thread(me, 0)),
                        "Bind IRQ to initialization thread.");
+
+          reset_sdio(cmd);
 
           _drv.set_voltage(Mmc::Voltage_330);
           // Delay required after changing voltage.

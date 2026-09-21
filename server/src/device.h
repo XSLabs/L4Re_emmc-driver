@@ -21,6 +21,7 @@
 #include <map>
 #include <thread-l4>
 
+#include <l4/cxx/minmax>
 #include <l4/cxx/string>
 #include <l4/libblock-device/device.h>
 #include <l4/libblock-device/part_device.h>
@@ -159,8 +160,11 @@ public:
    */
   l4_size_t max_size() const override
   {
-    l4_size_t sz = _drv.provided_bounce_buffer() ? _drv.bounce_buffer_size()
-                                                 : _drv.max_inout_req_size();
+    // Both limits apply: A request has to fit into the bounce buffer (if one
+    // is used) and into what the controller can transfer with one command.
+    l4_size_t sz = _drv.max_inout_req_size();
+    if (_drv.provided_bounce_buffer())
+      sz = cxx::min(sz, _drv.bounce_buffer_size());
     // The per-segment limit is advertised to the block frontend as size_max.
     // It must be a multiple of the sector size, otherwise the frontend may
     // split a request at a non-sector-aligned boundary ("Bad block size").

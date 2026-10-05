@@ -310,7 +310,7 @@ Device<Driver>::inout_data(l4_uint64_t sector,
 
       bool inout_read = dir == L4Re::Dma_space::Direction::From_device;
 
-      unsigned segments = 0;
+      [[maybe_unused]] unsigned segments = 0;
       for (Block_device::Inout_block const *b = &blocks; b; b = b->next.get())
         {
           l4_size_t size = b->num_sectors * sector_size();
